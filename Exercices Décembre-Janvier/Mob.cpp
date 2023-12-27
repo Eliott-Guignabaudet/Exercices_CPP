@@ -41,3 +41,19 @@ void Mob::Move() {
 		<< GetPosition().y
 		<< std::endl;
 }
+
+void Mob::MoveToPosition(Vector2 a_targetPosition) {
+	SetDirection(a_targetPosition - GetPosition());
+	float distance = GetPosition().GetDistance(a_targetPosition);
+	if (distance < GetSpeed())
+	{
+		float tmpSpeed = GetSpeed();
+		SetSpeed(distance);
+		Move();
+		SetSpeed(tmpSpeed);
+	}
+	else
+	{
+		Move();
+	}
+}

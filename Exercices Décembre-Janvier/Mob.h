@@ -16,5 +16,6 @@ public:
     virtual void TakeDamage(float a_damage) override;
 
     virtual void Move() override;
+    virtual void MoveToPosition(Vector2 a_targetPosition) override;
 };
 

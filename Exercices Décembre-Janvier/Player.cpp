@@ -42,7 +42,32 @@ void Player::Move() {
 		<< std::endl;
 }
 
+void Player::MoveToPosition(Vector2 a_targetPosition) {
+	SetDirection(a_targetPosition - GetPosition());
+	float distance = GetPosition().GetDistance(a_targetPosition);
+	if (distance < GetSpeed())
+	{
+		float tmpSpeed = GetSpeed();
+		SetSpeed(distance);
+		Move();
+		SetSpeed(tmpSpeed);
+	}
+	else
+	{
+		Move();
+	}
+}
+
 void Player::ApplyDamage(Alive* a_target) {
 	std::cout << "Player just attacked" << std::endl;
 	a_target->TakeDamage(10);
+}
+
+void Player::StepToEnnemy(Alive* a_target, Vector2 a_targetPosition) {
+	MoveToPosition(a_targetPosition);
+	float distance = GetPosition().GetDistance(a_targetPosition);
+	if (distance < 1)
+	{
+		ApplyDamage(a_target);
+	}
 }

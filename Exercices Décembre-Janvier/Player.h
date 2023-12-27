@@ -17,6 +17,9 @@ public:
 
     virtual void TakeDamage(float a_damage) override;
     virtual void Move() override;
+    virtual void MoveToPosition(Vector2 a_targetPosition) override;
     virtual void ApplyDamage(Alive* a_target) override;
+
+    void StepToEnnemy(Alive* a_target, Vector2 a_targetPosition);
 };
 

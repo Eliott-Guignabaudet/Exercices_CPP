@@ -13,6 +13,10 @@ Vector2 Vector2::Normalized() {
 	return tmp;
 }
 
+float Vector2::GetDistance(Vector2 a_target) {
+	return sqrtf((a_target.x - x) * (a_target.x - x) + (a_target.y - y) * (a_target.y - y));
+}
+
 Vector2 operator+(const Vector2& l, const Vector2& r) {
 	Vector2 tmp(l);
 	tmp += r;
@@ -22,6 +26,18 @@ Vector2 operator+(const Vector2& l, const Vector2& r) {
 Vector2& Vector2::operator+=(const Vector2& r) {
 	x += r.x;
 	y += r.y;
+	return *this;
+}
+
+Vector2 operator-(const Vector2& l, const Vector2& r) {
+	Vector2 tmp(l);
+	tmp -= r;
+	return tmp;
+}
+
+Vector2& Vector2::operator-=(const Vector2& r) {
+	x -= r.x;
+	y -= r.y;
 	return *this;
 }
 

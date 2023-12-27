@@ -16,5 +16,6 @@ public:
 	virtual void SetSpeed(float a_speed);
 
 	virtual void Move() = 0;
+	virtual void MoveToPosition(Vector2 a_targetPosition) = 0;
 };
 

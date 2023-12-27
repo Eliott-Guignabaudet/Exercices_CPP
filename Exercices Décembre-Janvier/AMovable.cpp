@@ -19,4 +19,3 @@ void AMovable::SetDirection(Vector2 a_direction) {
 void AMovable::SetSpeed(float a_speed) {
 	m_speed = a_speed;
 } 
-
