@@ -11,6 +11,7 @@ public:
 	World();
 	~World();
 	void Step();
+	void TryRemoveDeadEntity(Alive* a_target);
 	bool CheckSimulationIsFinished();
 
 

@@ -57,27 +57,25 @@ void World::Step() {
 			if (closestMob != nullptr)
 			{
 				tmpPlayer->StepToEnnemy(closestMob, closestMob->GetPosition());
-				if (closestMob->GetCurrentLife() <= 0)
-				{
-					std::vector<Entity*>::iterator index; 
-					index = std::find(m_entities.begin(), m_entities.end(), closestMob);
-					m_entities.erase(index);
-				}
+				TryRemoveDeadEntity(closestMob);
 				continue;
 			}
 			BreakableObject* closestBreakable = GetClosest<BreakableObject>(tmpPlayer->GetPosition());
 			if (closestBreakable != nullptr)
 			{
 				tmpPlayer->StepToEnnemy(closestBreakable, closestBreakable->GetPosition());
-				if (closestBreakable->GetCurrentLife() <= 0)
-				{
-					std::vector<Entity*>::iterator index;
-					index = std::find(m_entities.begin(), m_entities.end(), closestBreakable);
-					m_entities.erase(index);
-				}
-				
+				TryRemoveDeadEntity(closestBreakable);
 			}
 		}
+	}
+}
+
+void World::TryRemoveDeadEntity(Alive* a_target) {
+	if (a_target->GetCurrentLife() <= 0)
+	{
+		std::vector<Entity*>::iterator index;
+		index = std::find(m_entities.begin(), m_entities.end(), dynamic_cast<Entity*>(a_target));
+		m_entities.erase(index);
 	}
 }
 
@@ -90,7 +88,7 @@ T* World::GetClosest(Vector2 a_position) {
 		T* tmp = dynamic_cast<T*>(m_entities[i]);
 		if (tmp && (closest == nullptr || (abs(tmp->GetPosition().GetDistance(a_position)) < closestDistance)))
 		{
-			clostest = tmp;
+			closest = tmp;
 			closestDistance = abs(closest->GetPosition().GetDistance(a_position));
 		}
 	}
