@@ -44,7 +44,7 @@ void World::Step() {
 	{
 		if(dynamic_cast<Mob*>(m_entities[i])) {
 			Mob* tmpMob = dynamic_cast<Mob*>(m_entities[i]);
-			BreakableObject* clostestBreakable = GetClosestBreakableObject(tmpMob->GetPosition());
+			BreakableObject* clostestBreakable = GetClosest<BreakableObject>(tmpMob->GetPosition());
 			if (clostestBreakable != nullptr)
 			{
 				tmpMob->MoveToPosition(clostestBreakable->GetPosition());
@@ -53,7 +53,7 @@ void World::Step() {
 		}
 		else if (dynamic_cast<Player*>(m_entities[i])) {
 			Player* tmpPlayer = dynamic_cast<Player*>(m_entities[i]);
-			Mob* closestMob = GetClosestMob(tmpPlayer->GetPosition());
+			Mob* closestMob = GetClosest<Mob>(tmpPlayer->GetPosition());
 			if (closestMob != nullptr)
 			{
 				tmpPlayer->StepToEnnemy(closestMob, closestMob->GetPosition());
@@ -65,7 +65,7 @@ void World::Step() {
 				}
 				continue;
 			}
-			BreakableObject* closestBreakable = GetClosestBreakableObject(tmpPlayer->GetPosition());
+			BreakableObject* closestBreakable = GetClosest<BreakableObject>(tmpPlayer->GetPosition());
 			if (closestBreakable != nullptr)
 			{
 				tmpPlayer->StepToEnnemy(closestBreakable, closestBreakable->GetPosition());
@@ -81,33 +81,17 @@ void World::Step() {
 	}
 }
 
-BreakableObject* World::GetClosestBreakableObject(Vector2 a_position) {
-	BreakableObject* closest{};
+template<class T>
+T* World::GetClosest(Vector2 a_position) {
+	T* closest{};
 	float closestDistance;
 	for (int i = 0; i < m_entities.size(); i++)
 	{
-		BreakableObject* tmp = dynamic_cast<BreakableObject*>(m_entities[i]);
+		T* tmp = dynamic_cast<T*>(m_entities[i]);
 		if (tmp && (closest == nullptr || (abs(tmp->GetPosition().GetDistance(a_position)) < closestDistance)))
 		{
-			closest = tmp;
+			clostest = tmp;
 			closestDistance = abs(closest->GetPosition().GetDistance(a_position));
-			
-		}
-	}
-	return closest;
-}
-
-Mob* World::GetClosestMob(Vector2 a_position) {
-	Mob* closest{};
-	float closestDistance;
-	for (int i = 0; i < m_entities.size(); i++)
-	{
-		Mob* tmp = dynamic_cast<Mob*>(m_entities[i]);
-		if (tmp && (closest == nullptr || (abs(tmp->GetPosition().GetDistance(a_position)) < closestDistance)))
-		{
-			closest = tmp;
-			closestDistance = abs(closest->GetPosition().GetDistance(a_position));
-
 		}
 	}
 	return closest;

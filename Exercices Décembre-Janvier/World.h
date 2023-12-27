@@ -12,6 +12,8 @@ public:
 	~World();
 	void Step();
 	bool CheckSimulationIsFinished();
-	BreakableObject* GetClosestBreakableObject(Vector2 a_position);
-	Mob* GetClosestMob(Vector2 a_position);
+
+
+	template<class T = Entity>
+	T* GetClosest(Vector2 a_position);
 };
