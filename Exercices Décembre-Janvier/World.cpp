@@ -53,19 +53,17 @@ void World::Step() {
 		}
 		else if (dynamic_cast<Player*>(m_entities[i])) {
 			Player* tmpPlayer = dynamic_cast<Player*>(m_entities[i]);
-			Mob* closestMob = GetClosest<Mob>(tmpPlayer->GetPosition());
-			if (closestMob != nullptr)
+			Alive* closestAlive = GetClosest<Mob>(tmpPlayer->GetPosition());
+			if (closestAlive == nullptr)
 			{
-				tmpPlayer->StepToEnnemy(closestMob, closestMob->GetPosition());
-				TryRemoveDeadEntity(closestMob);
+				closestAlive = GetClosest<BreakableObject>(tmpPlayer->GetPosition());
+			}
+			if (closestAlive == nullptr)
+			{
 				continue;
 			}
-			BreakableObject* closestBreakable = GetClosest<BreakableObject>(tmpPlayer->GetPosition());
-			if (closestBreakable != nullptr)
-			{
-				tmpPlayer->StepToEnnemy(closestBreakable, closestBreakable->GetPosition());
-				TryRemoveDeadEntity(closestBreakable);
-			}
+			tmpPlayer->StepToEnnemy(closestAlive, dynamic_cast<Entity*>(closestAlive)->GetPosition());
+			TryRemoveDeadEntity(closestAlive);
 		}
 	}
 }
