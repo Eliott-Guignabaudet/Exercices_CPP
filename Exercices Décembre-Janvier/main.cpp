@@ -1,9 +1,11 @@
 #include <iostream>
+#include <SFML/Graphics.hpp>
 #include "StaticObject.h"
 #include "BreakableObject.h"
 #include "Mob.h"
 #include "Player.h"
 #include "World.h"
+#include "Manager.h"
 
 using namespace std;
 int main() {
@@ -16,4 +18,7 @@ int main() {
 	}
 
 	delete world;
+
+    Manager* manager = new Manager();
+    manager->Run();
 } 
