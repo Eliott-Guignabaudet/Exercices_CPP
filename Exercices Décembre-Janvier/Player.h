@@ -21,5 +21,8 @@ public:
     virtual void ApplyDamage(Alive* a_target) override;
 
     void StepToEnnemy(Alive* a_target, Vector2 a_targetPosition);
+
+    sf::Drawable* Draw() override;
+
 };
 

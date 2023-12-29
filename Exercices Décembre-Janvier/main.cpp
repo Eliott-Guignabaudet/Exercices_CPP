@@ -11,13 +11,13 @@ using namespace std;
 int main() {
 	std::cout << "Hello World" << std::endl;
 
-	World *world = new World();
+	/*World *world = new World();
 	while (!world->CheckSimulationIsFinished())
 	{
 		world->Step();
 	}
 
-	delete world;
+	delete world;*/
 
     Manager* manager = new Manager();
     manager->Run();

@@ -5,7 +5,7 @@ Player::Player() : Entity(), Alive(), AMovable(){
 }
 
 Player::Player(Vector2 a_position, float a_maxLife, Vector2 a_direction, float a_speed) 
-	: Entity(a_position), Alive(a_maxLife), AMovable(a_direction, a_speed){
+	: Entity(a_position, new sf::CircleShape(1.f)), Alive(a_maxLife), AMovable(a_direction, a_speed){
 	DisplayCreationMessge();
 }
 
@@ -70,4 +70,11 @@ void Player::StepToEnnemy(Alive* a_target, Vector2 a_targetPosition) {
 	{
 		ApplyDamage(a_target);
 	}
+}
+
+sf::Drawable* Player::Draw() {
+	sf::CircleShape* circle = dynamic_cast<sf::CircleShape*>(GetDrawable());
+	circle->setPosition(GetPosition().x, GetPosition().y);
+	circle->setFillColor(sf::Color(255, 255, 0));
+	return circle;
 }

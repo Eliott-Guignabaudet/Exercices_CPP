@@ -11,7 +11,7 @@ private:
 public:
     BreakableObject();
     BreakableObject(Vector2 a_position, float a_maxLife);
-
+    sf::Drawable* Draw() override;
     virtual void TakeDamage(float a_damage) override;
 };
 

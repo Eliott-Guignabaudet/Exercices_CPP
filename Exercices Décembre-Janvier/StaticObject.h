@@ -8,5 +8,6 @@ private:
 public:
     StaticObject();
     StaticObject(Vector2 a_position);
+    sf::Drawable* Draw() override;
 };
 

@@ -4,7 +4,7 @@ BreakableObject::BreakableObject() : Entity(), Alive(){
 	DisplayCreationMessage();
 }
 
-BreakableObject::BreakableObject(Vector2 a_position, float a_maxLife) : Entity(a_position), Alive(a_maxLife){
+BreakableObject::BreakableObject(Vector2 a_position, float a_maxLife) : Entity(a_position, new sf::RectangleShape(sf::Vector2f(2.f,2.f))), Alive(a_maxLife){
 	DisplayCreationMessage();
 }
 
@@ -31,4 +31,11 @@ void BreakableObject::TakeDamage(float a_damage) {
 	{
 		DisplayBrokeMessage();
 	}
+}
+
+sf::Drawable* BreakableObject::Draw() {
+	sf::RectangleShape* rectangle = dynamic_cast<sf::RectangleShape*>(GetDrawable());
+	rectangle->setPosition(GetPosition().x, GetPosition().y);
+	rectangle->setFillColor(sf::Color(255,128,0));
+	return rectangle;
 }

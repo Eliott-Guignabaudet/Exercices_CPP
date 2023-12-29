@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <SFML/Graphics.hpp>
 #include "BreakableObject.h"
 #include "Mob.h"
 class World
@@ -17,6 +18,7 @@ public:
 	~World();
 	void Step();
 	bool CheckSimulationIsFinished();
+	std::vector<sf::Drawable*> Draw();
 
 
 };

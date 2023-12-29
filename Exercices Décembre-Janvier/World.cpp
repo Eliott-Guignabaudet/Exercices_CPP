@@ -14,7 +14,7 @@ void World::Init() {
 	StaticObject* staticObject = new StaticObject(Vector2(10, 10));
 	BreakableObject* tower = new BreakableObject(Vector2(-5, -12), 1);
 
-	Mob* zombi = new Mob(Vector2(5, 5), 20, Vector2(1, 1), 2);
+	Mob* zombi = new Mob(Vector2(10, -20), 20, Vector2(1, 1), 2);
 	Player* player = new Player(Vector2(0, 0), 10, Vector2(1, 1), 5);
 
 	m_entities.push_back(staticObject);
@@ -75,6 +75,16 @@ void World::TryRemoveDeadEntity(Alive* a_target) {
 		index = std::find(m_entities.begin(), m_entities.end(), dynamic_cast<Entity*>(a_target));
 		m_entities.erase(index);
 	}
+}
+
+std::vector<sf::Drawable*> World::Draw() {
+
+	std::vector<sf::Drawable*> result = {};
+	for (int i = 0; i < m_entities.size(); i++)
+	{
+		result.push_back(m_entities[i]->Draw());
+	}
+	return result;
 }
 
 template<class T>

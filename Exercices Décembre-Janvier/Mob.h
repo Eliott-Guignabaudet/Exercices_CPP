@@ -17,5 +17,8 @@ public:
 
     virtual void Move() override;
     virtual void MoveToPosition(Vector2 a_targetPosition) override;
+
+    sf::Drawable* Draw() override;
+
 };
 
