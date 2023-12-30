@@ -11,11 +11,11 @@ World::~World() {
 }
 
 void World::Init() {
-	StaticObject* staticObject = new StaticObject(Vector2(10, 10));
-	BreakableObject* tower = new BreakableObject(Vector2(-5, -12), 1);
+	StaticObject* staticObject = new StaticObject(Vector2(rand() % 40 - 20, rand() % 40 - 20));
+	BreakableObject* tower = new BreakableObject(Vector2(rand() % 40 - 20, rand() % 40 - 20), 1);
 
-	Mob* zombi = new Mob(Vector2(10, -20), 20, Vector2(1, 1), 2);
-	Player* player = new Player(Vector2(0, 0), 10, Vector2(1, 1), 5);
+	Mob* zombi = new Mob(Vector2(rand() % 40 - 20, rand() % 40 - 20), 20, Vector2(1, 1), 10);
+	Player* player = new Player(Vector2(rand() % 40 - 20, rand() % 40 - 20), 10, Vector2(1, 1), 20);
 
 	m_entities.push_back(staticObject);
 	m_entities.push_back(tower);

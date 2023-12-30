@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include "GameTime.h"
 Player::Player() : Entity(), Alive(), AMovable(){
 	DisplayCreationMessge();
 }
@@ -33,7 +33,7 @@ void Player::TakeDamage(float a_damage) {
 }
 
 void Player::Move() {
-	SetPosition(GetPosition() + (GetDirection() * GetSpeed()));
+	SetPosition(GetPosition() + (GetDirection() * GetSpeed() * GameTime::GetDeltaTime()));
 	std::cout
 		<< "Player moved to x = "
 		<< GetPosition().x
@@ -48,7 +48,7 @@ void Player::MoveToPosition(Vector2 a_targetPosition) {
 	if (distance < GetSpeed())
 	{
 		float tmpSpeed = GetSpeed();
-		SetSpeed(distance);
+		//SetSpeed(distance);
 		Move();
 		SetSpeed(tmpSpeed);
 	}

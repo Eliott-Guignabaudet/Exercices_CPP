@@ -1,18 +1,20 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "World.h"
-class Manager
+#include "GameTime.h"
+class Manager :
+	public GameTime
 {
 private:
 	sf::RenderWindow* m_window;
 	World* m_world;
 	sf::View m_view;
 
-	void Update();
-	void Draw();
+	void Update() override;
+	void Draw() override;
 	void EventHandler();
 public:
 	Manager();
-	void Run();
+	void Run() override;
 };
 

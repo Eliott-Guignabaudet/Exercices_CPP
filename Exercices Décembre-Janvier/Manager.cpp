@@ -1,5 +1,10 @@
 #include "Manager.h"
+
+sf::Clock GameTime::m_clock = sf::Clock();
+int GameTime::m_targetFPS = 60;
+
 Manager::Manager() : m_world(nullptr), m_view(sf::View(sf::FloatRect(-30.f, -30.f, 60.f, 60.f))) {
+
 
 	sf::RenderWindow*  window = new sf::RenderWindow(sf::VideoMode(800, 800), "My window");
 	m_window = window;
@@ -8,18 +13,25 @@ Manager::Manager() : m_world(nullptr), m_view(sf::View(sf::FloatRect(-30.f, -30.
 }
 
 void Manager::Run() {
-	
-	sf::Clock clock;
+	float previousTimeElapsed = 0;
+	float clockDeltaTime = 0;
+
 	m_world = new World();
 	Draw();
 	while (m_window->isOpen()) {
-		sf::Time elapsedTime = clock.getElapsedTime();
+
+		m_totalTimeElapsed = m_clock.getElapsedTime().asSeconds();
+		clockDeltaTime = m_totalTimeElapsed - previousTimeElapsed;
+		previousTimeElapsed = m_totalTimeElapsed;
+
+		m_deltaTime += clockDeltaTime;
+
 		EventHandler();
-		if (elapsedTime.asSeconds() > 1.f)
+		if (m_deltaTime >= 1.f/m_targetFPS)
 		{
-			clock.restart();
 			Update();
 			Draw();
+			m_deltaTime = 0;
 		}
 	}
 }
@@ -32,6 +44,10 @@ void Manager::Update(){
 	if (!m_world->CheckSimulationIsFinished())
 	{
 		m_world->Step();
+	}
+	else
+	{
+		m_world = new World();
 	}
 
 }
@@ -62,5 +78,13 @@ void Manager::EventHandler() {
 		if (event.type == sf::Event::Closed) {
 			m_window->close();
 		}
+
+		// Get Mouse position in view
+		/*if (event.type == sf::Event::MouseMoved)
+		{
+			sf::Vector2f mappedPosition = m_window->mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
+			std::cout << "new mouse x: " << mappedPosition.x << std::endl;
+			std::cout << "new mouse y: " << mappedPosition.y << std::endl;
+		}*/
 	}
 }

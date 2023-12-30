@@ -1,5 +1,5 @@
 #include "Mob.h"
-
+#include "GameTime.h"
 Mob::Mob() 
 	: Entity(), Alive(), AMovable(){
 	DisplayCreationMessage();
@@ -33,7 +33,7 @@ void Mob::TakeDamage(float a_damage){
 }
 
 void Mob::Move() {
-	SetPosition(GetPosition() + (GetDirection() * GetSpeed()));
+	SetPosition(GetPosition() + (GetDirection() * GetSpeed() * GameTime::GetDeltaTime()));
 	std::cout
 		<< "Mob move to x = "
 		<< GetPosition().x
@@ -48,7 +48,7 @@ void Mob::MoveToPosition(Vector2 a_targetPosition) {
 	if (distance < GetSpeed())
 	{
 		float tmpSpeed = GetSpeed();
-		SetSpeed(distance);
+		//SetSpeed(distance);
 		Move();
 		SetSpeed(tmpSpeed);
 	}
