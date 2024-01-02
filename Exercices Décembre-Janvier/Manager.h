@@ -9,6 +9,7 @@ private:
 	sf::RenderWindow* m_window;
 	World* m_world;
 	sf::View m_view;
+	sf::Texture m_backGroundTexture;
 
 	void Update() override;
 	void Draw() override;

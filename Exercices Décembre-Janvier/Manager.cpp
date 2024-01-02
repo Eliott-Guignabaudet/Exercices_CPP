@@ -10,7 +10,10 @@ Manager::Manager() : m_world(nullptr), m_view(sf::View(sf::FloatRect(-25.f, -25.
 	m_window = window;
 	m_window->clear(sf::Color::Black);
 	m_window->setView(m_view);
-
+	if (!m_backGroundTexture.loadFromFile("Assets/ciel-etoile.jpg"))
+	{
+		return;
+	}
 }
 
 void Manager::Run() {
@@ -56,11 +59,13 @@ void Manager::Draw() {
 
 
 	m_window->clear();
-	/*sf::RectangleShape rectangele = sf::RectangleShape(sf::Vector2f(20.f,20.f));
-	rectangele.setFillColor(sf::Color(255.f,255.f,255.f));
-	m_window->draw(rectangele);
-	m_window->display();*/
 
+	sf::Sprite sprite;
+	sf::Vector2u size = m_backGroundTexture.getSize();
+	sprite.setTexture(m_backGroundTexture);
+	sprite.setOrigin(size.x / 2, size.y / 2);
+	sprite.setScale(0.0125f, 0.0125f);
+	m_window->draw(sprite);
 	std::vector<sf::Drawable*> drawables = m_world->Draw();
 	for (int i = 0; i < drawables.size(); i++)
 	{
@@ -86,17 +91,8 @@ void Manager::EventHandler() {
 			{
 
 				sf::Vector2f mappedPosition = m_window->mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y));
-				/*std::cout << "new mouse x: " << mappedPosition << std::endl;
-				std::cout << "new mouse y: " << mappedPosition << std::endl;*/
 				m_world->SpawnMob(Vector2(mappedPosition.x, mappedPosition.y));
 			}
 		}
-
-		/*if (event.type == sf::Event::MouseMoved)
-		{
-			sf::Vector2f mappedPosition = m_window->mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
-			std::cout << "new mouse x: " << mappedPosition.x << std::endl;
-			std::cout << "new mouse y: " << mappedPosition.y << std::endl;
-		}*/
 	}
 }
