@@ -1,5 +1,7 @@
+#define _USE_MATH_DEFINES
 #include "Mob.h"
 #include "GameTime.h"
+#include <math.h>
 Mob::Mob() 
 	: Entity(), Alive(), AMovable(){
 	Load();
@@ -19,7 +21,9 @@ void Mob::Load() {
 	}
 	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
 	sprite->setTexture(p_texture);
+	sprite->setOrigin((p_texture.getSize().x / 2), (p_texture.getSize().y / 2));
 	sprite->setScale(0.05f, 0.05f);
+
 }
 
 void Mob::DisplayCreationMessage(){
@@ -47,12 +51,12 @@ void Mob::TakeDamage(float a_damage){
 
 void Mob::Move() {
 	SetPosition(GetPosition() + (GetDirection() * GetSpeed() * GameTime::GetDeltaTime()));
-	std::cout
+	/*std::cout
 		<< "Mob move to x = "
 		<< GetPosition().x
 		<< " and y = "
 		<< GetPosition().y
-		<< std::endl;
+		<< std::endl;*/
 }
 
 void Mob::MoveToPosition(Vector2 a_targetPosition) {
@@ -79,5 +83,7 @@ sf::Drawable* Mob::Draw() {
 
 	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
 	sprite->setPosition(GetPosition().x, GetPosition().y);
+	sprite->setRotation((std::atan2(GetDirection().y, GetDirection().x) * 180 / M_PI) );
+
 	return sprite;
 }

@@ -1,5 +1,7 @@
+#define _USE_MATH_DEFINES
 #include "Player.h"
 #include "GameTime.h"
+#include <math.h>
 Player::Player() : Entity(), Alive(), AMovable(){
 	Load();
 	DisplayCreationMessge();
@@ -19,6 +21,7 @@ void Player::Load() {
 	}
 	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
 	sprite->setTexture(p_texture);
+	sprite->setOrigin((p_texture.getSize().x / 2), (p_texture.getSize().y / 2));
 	sprite->setScale(0.025f, 0.025f);
 }
 
@@ -47,12 +50,12 @@ void Player::TakeDamage(float a_damage) {
 
 void Player::Move() {
 	SetPosition(GetPosition() + (GetDirection() * GetSpeed() * GameTime::GetDeltaTime()));
-	std::cout
+	/*std::cout
 		<< "Player moved to x = "
 		<< GetPosition().x
 		<< " and y = "
 		<< GetPosition().y
-		<< std::endl;
+		<< std::endl;*/
 }
 
 void Player::MoveToPosition(Vector2 a_targetPosition) {
@@ -92,6 +95,8 @@ sf::Drawable* Player::Draw() {
 	return circle;*/
 	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
 	sprite->setPosition(GetPosition().x, GetPosition().y);
+	//std::cout << std::atan2(GetDirection().y, GetDirection().x) / M_PI << std::endl;
+	sprite->setRotation((std::atan2(GetDirection().y, GetDirection().x) * 180 / M_PI) - 90);
 	return sprite;
 
 }

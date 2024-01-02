@@ -18,7 +18,9 @@ void BreakableObject::Load() {
 	}
 	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
 	sprite->setTexture(p_texture);
+	sprite->setOrigin((p_texture.getSize().x /2) , (p_texture.getSize().y /2) );
 	sprite->setScale(0.0125f, 0.0125f);
+
 }
 
 void BreakableObject::DisplayCreationMessage(){

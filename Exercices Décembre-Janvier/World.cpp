@@ -103,3 +103,8 @@ T* World::GetClosest(Vector2 a_position) {
 	}
 	return closest;
 }
+
+void World::SpawnMob(Vector2 a_position) {
+	Mob* newMob = new Mob(a_position, 20, Vector2(1, 1), 10);
+	m_entities.push_back(newMob);
+}

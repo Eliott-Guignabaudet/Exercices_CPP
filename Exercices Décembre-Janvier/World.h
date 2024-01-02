@@ -11,7 +11,7 @@ private:
 	void TryRemoveDeadEntity(Alive* a_target);
 	template<class T = Entity>
 	T* GetClosest(Vector2 a_position);
-
+	
 
 public:
 	World();
@@ -19,6 +19,6 @@ public:
 	void Step();
 	bool CheckSimulationIsFinished();
 	std::vector<sf::Drawable*> Draw();
-
+	void SpawnMob(Vector2 a_position);
 
 };

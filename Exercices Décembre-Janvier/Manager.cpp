@@ -80,6 +80,18 @@ void Manager::EventHandler() {
 		}
 
 		// Get Mouse position in view
+		if (event.type == sf::Event::MouseButtonPressed)
+		{
+			if (event.mouseButton.button == sf::Mouse::Left)
+			{
+
+				sf::Vector2f mappedPosition = m_window->mapPixelToCoords(sf::Vector2i(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y));
+				/*std::cout << "new mouse x: " << mappedPosition << std::endl;
+				std::cout << "new mouse y: " << mappedPosition << std::endl;*/
+				m_world->SpawnMob(Vector2(mappedPosition.x, mappedPosition.y));
+			}
+		}
+
 		/*if (event.type == sf::Event::MouseMoved)
 		{
 			sf::Vector2f mappedPosition = m_window->mapPixelToCoords(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
