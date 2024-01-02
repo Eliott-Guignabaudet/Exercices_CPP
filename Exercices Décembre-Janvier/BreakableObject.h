@@ -8,6 +8,7 @@ class BreakableObject :
 private:
     void DisplayCreationMessage();
     void DisplayBrokeMessage();
+    void Load();
 public:
     BreakableObject();
     BreakableObject(Vector2 a_position, float a_maxLife);

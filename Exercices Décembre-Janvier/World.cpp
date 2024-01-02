@@ -37,6 +37,7 @@ bool World::CheckSimulationIsFinished() {
 
 	}
 	std::cout << "Simulation Finished" << std::endl;
+	return true;
 }
 
 void World::Step() {

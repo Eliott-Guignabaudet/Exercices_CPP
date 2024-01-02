@@ -5,6 +5,7 @@ class StaticObject :
 {
 private:
     void DisplayCreationMessage();
+    void Load();
 public:
     StaticObject();
     StaticObject(Vector2 a_position);

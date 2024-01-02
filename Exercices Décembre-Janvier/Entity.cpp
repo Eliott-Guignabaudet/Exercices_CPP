@@ -1,12 +1,13 @@
 #include "Entity.h"
 
 
-Entity::Entity() : m_position(Vector2()), m_drawable(new sf::RectangleShape()){}
+Entity::Entity() : m_position(Vector2()), m_drawable(new sf::RectangleShape()), p_texture(sf::Texture()){
+}
 
-Entity::Entity(Vector2 a_position) : m_position(a_position), m_drawable(new sf::RectangleShape()) {}
+Entity::Entity(Vector2 a_position) : m_position(a_position), m_drawable(new sf::RectangleShape()), p_texture(sf::Texture()) {
+}
 
-Entity::Entity(Vector2 a_position, sf::Drawable* a_drawable) : m_position(a_position), m_drawable(a_drawable) {
-
+Entity::Entity(Vector2 a_position, sf::Drawable* a_drawable) : m_position(a_position), m_drawable(a_drawable), p_texture(sf::Texture()) {
 }
 
 Entity::~Entity() {

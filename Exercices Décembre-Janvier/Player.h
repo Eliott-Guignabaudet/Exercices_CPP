@@ -11,6 +11,7 @@ class Player :
 { 
 private:
     void DisplayCreationMessge();
+    void Load();
 public:
     Player();
     Player(Vector2 a_position, float a_maxLife, Vector2 a_direction, float a_speed);

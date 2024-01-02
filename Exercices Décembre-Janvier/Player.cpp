@@ -1,12 +1,25 @@
 #include "Player.h"
 #include "GameTime.h"
 Player::Player() : Entity(), Alive(), AMovable(){
+	Load();
 	DisplayCreationMessge();
 }
 
 Player::Player(Vector2 a_position, float a_maxLife, Vector2 a_direction, float a_speed) 
-	: Entity(a_position, new sf::CircleShape(1.f)), Alive(a_maxLife), AMovable(a_direction, a_speed){
+	: Entity(a_position, new sf::Sprite()), Alive(a_maxLife), AMovable(a_direction, a_speed){
+	Load();
 	DisplayCreationMessge();
+}
+
+void Player::Load() {
+	if (!p_texture.loadFromFile("Assets/Sprites/spaceShips_001.png"))
+	{
+		std::cout << "Texture don't load" << std::endl;
+		return;
+	}
+	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
+	sprite->setTexture(p_texture);
+	sprite->setScale(0.025f, 0.025f);
 }
 
 void Player::DisplayCreationMessge() {
@@ -73,8 +86,12 @@ void Player::StepToEnnemy(Alive* a_target, Vector2 a_targetPosition) {
 }
 
 sf::Drawable* Player::Draw() {
-	sf::CircleShape* circle = dynamic_cast<sf::CircleShape*>(GetDrawable());
+	/*sf::CircleShape* circle = dynamic_cast<sf::CircleShape*>(GetDrawable());
 	circle->setPosition(GetPosition().x, GetPosition().y);
 	circle->setFillColor(sf::Color(255, 255, 0));
-	return circle;
+	return circle;*/
+	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
+	sprite->setPosition(GetPosition().x, GetPosition().y);
+	return sprite;
+
 }

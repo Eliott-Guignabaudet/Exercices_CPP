@@ -9,6 +9,7 @@ class Mob :
 {
 private:
     void DisplayCreationMessage();
+    void Load();
 public:
     Mob();
     Mob(Vector2 a_position, float a_maxLife, Vector2 a_direction, float a_speed);

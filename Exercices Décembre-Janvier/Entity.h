@@ -6,10 +6,10 @@ class Entity
 private:
 	Vector2 m_position;
 	sf::Drawable* m_drawable;
-
 protected:
 	Entity(Vector2 a_position, sf::Drawable* a_drawable);
 	sf::Drawable* GetDrawable();
+	sf::Texture p_texture;
 public:
 	Entity();
 	~Entity();

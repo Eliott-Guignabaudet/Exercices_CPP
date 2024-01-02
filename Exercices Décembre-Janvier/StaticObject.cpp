@@ -1,11 +1,25 @@
 #include "StaticObject.h"
 
 StaticObject::StaticObject() : Entity(){
+	Load();
 	DisplayCreationMessage();
 }
 
-StaticObject::StaticObject(Vector2 a_position) : Entity(a_position, new sf::RectangleShape(sf::Vector2f(2.f, 2.f))) {
+StaticObject::StaticObject(Vector2 a_position) : Entity(a_position, new sf::Sprite()) {
+	Load();
 	DisplayCreationMessage();
+}
+
+void StaticObject::Load() {
+	if (!p_texture.loadFromFile("Assets/Sprites/spaceStation_019.png"))
+	{
+		std::cout << "Texture don't load" << std::endl;
+		return;
+	}
+	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
+	sprite->setTexture(p_texture);
+	sprite->setScale(0.025f, 0.025f);
+
 }
 
 void StaticObject::DisplayCreationMessage() {
@@ -18,8 +32,12 @@ void StaticObject::DisplayCreationMessage() {
 }
 
 sf::Drawable* StaticObject::Draw() {
-	sf::RectangleShape* rectangle = dynamic_cast<sf::RectangleShape*>(GetDrawable());
+	/*sf::RectangleShape* rectangle = dynamic_cast<sf::RectangleShape*>(GetDrawable());
 	rectangle->setFillColor(sf::Color(255,50,187));
 	rectangle->setPosition(GetPosition().x, GetPosition().y);
-	return rectangle;
+	return rectangle;*/
+
+	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
+	sprite->setPosition(GetPosition().x, GetPosition().y);
+	return sprite;
 }

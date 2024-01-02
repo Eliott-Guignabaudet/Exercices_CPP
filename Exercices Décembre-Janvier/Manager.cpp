@@ -3,11 +3,12 @@
 sf::Clock GameTime::m_clock = sf::Clock();
 int GameTime::m_targetFPS = 60;
 
-Manager::Manager() : m_world(nullptr), m_view(sf::View(sf::FloatRect(-30.f, -30.f, 60.f, 60.f))) {
+Manager::Manager() : m_world(nullptr), m_view(sf::View(sf::FloatRect(-25.f, -25.f, 50, 50))) {
 
 
 	sf::RenderWindow*  window = new sf::RenderWindow(sf::VideoMode(800, 800), "My window");
 	m_window = window;
+	m_window->clear(sf::Color::Black);
 	m_window->setView(m_view);
 
 }
@@ -15,7 +16,6 @@ Manager::Manager() : m_world(nullptr), m_view(sf::View(sf::FloatRect(-30.f, -30.
 void Manager::Run() {
 	float previousTimeElapsed = 0;
 	float clockDeltaTime = 0;
-
 	m_world = new World();
 	Draw();
 	while (m_window->isOpen()) {

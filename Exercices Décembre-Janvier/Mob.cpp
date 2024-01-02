@@ -2,11 +2,24 @@
 #include "GameTime.h"
 Mob::Mob() 
 	: Entity(), Alive(), AMovable(){
+	Load();
 	DisplayCreationMessage();
 }
 Mob::Mob(Vector2 a_position, float a_maxLife, Vector2 a_direction, float a_speed) 
-	: Entity(a_position, new sf::CircleShape(1.f)), Alive(a_maxLife), AMovable(a_direction, a_speed){
+	: Entity(a_position, new sf::Sprite()), Alive(a_maxLife), AMovable(a_direction, a_speed){
+	Load();
 	DisplayCreationMessage();
+}
+
+void Mob::Load() {
+	if (!p_texture.loadFromFile("Assets/Sprites/spaceAstronauts_005.png"))
+	{
+		std::cout << "Texture don't load" << std::endl;
+		return;
+	}
+	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
+	sprite->setTexture(p_texture);
+	sprite->setScale(0.05f, 0.05f);
 }
 
 void Mob::DisplayCreationMessage(){
@@ -59,8 +72,12 @@ void Mob::MoveToPosition(Vector2 a_targetPosition) {
 }
 
 sf::Drawable* Mob::Draw() {
-	sf::CircleShape* circle = dynamic_cast<sf::CircleShape*>(GetDrawable());
+	/*sf::CircleShape* circle = dynamic_cast<sf::CircleShape*>(GetDrawable());
 	circle->setPosition(GetPosition().x, GetPosition().y);
 	circle->setFillColor(sf::Color(0, 0, 255));
-	return circle;
+	return circle;*/
+
+	sf::Sprite* sprite = dynamic_cast<sf::Sprite*>(GetDrawable());
+	sprite->setPosition(GetPosition().x, GetPosition().y);
+	return sprite;
 }
